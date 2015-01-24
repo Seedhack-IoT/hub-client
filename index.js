@@ -37,11 +37,13 @@ var createSshKey = function(callback){
 
 var getSshKey = function(callback){
     fs.exists(keyDir, function(exist){
-        if(!exist){
+        if(exist == false){
             fs.mkdirSync(keyDir);
         } 
         fs.exists(sshKey+'.pub', function(exist){
-            if(!exist){
+
+            if(exist != false){
+
                 fs.readFile(sshKey+'.pub',{encoding:'utf-8'}, function(err, data){
                     if(err){
                         //TODO
@@ -51,11 +53,14 @@ var getSshKey = function(callback){
                         var obj = {};
                             obj.key = priv;
                             obj.pubKey = data;
+
+                            callback(obj);
                     });
-                    callback(data);
+                    
                 });
             } else {
                 //CREATE SSH KEYS named foo_rsa
+                // console.log()
                 createSshKey(callback);
             }
         });
@@ -105,9 +110,12 @@ var makeSshConnection = function(){
 
                 conn.on('ready', function() {
                   console.log('Connection :: ready');
-                  conn.shell(function(err, stream) {
+
+                  conn._openChan('apf_data',function(err, stream) {
                     if (err) throw err;
-                    stream.on('close', function() {
+                    stream.on('exit', function(code, signal) {
+                      console.log('Stream :: exit :: code: ' + code + ', signal: ' + signal);
+                    }).on('close', function() {
                       console.log('Stream :: close');
                       conn.end();
                     }).on('data', function(data) {
@@ -115,12 +123,12 @@ var makeSshConnection = function(){
                     }).stderr.on('data', function(data) {
                       console.log('STDERR: ' + data);
                     });
-                    stream.end('ls -l\nexit\n');
                   });
+
                 }).connect({
                   host: hub,
                   port: 2200,
-                  username: clientData.name,
+                  username: clientData.uuid,
                   privateKey: obj.key
                 });
 
@@ -139,8 +147,8 @@ var resetClient = function(){
     });
 }
 
-resetClient();
-// init();
+// resetClient();
+init();
 
 
 
