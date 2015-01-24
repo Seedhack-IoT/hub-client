@@ -70,7 +70,7 @@ var getSshKey = function(callback){
 }
 
 var readClient = function(callback){
-    fs.readFile('client.json', 'utf8', function (err, data) {
+    fs.readFile(__dirname+'/client.json', 'utf8', function (err, data) {
       if (err) throw err;
         // callback(JSON.parse(data));
         clientData = JSON.parse(data);
@@ -86,7 +86,7 @@ var updateClientFile = function(callback){
                 d.name = haiku();
                 d.reset = false;
 
-                fs.writeFile('client.json', JSON.stringify(d), function(err){
+                fs.writeFile(__dirname+'/client.json', JSON.stringify(d), function(err){
                     if(err) return err;
 
                     callback();
