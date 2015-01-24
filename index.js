@@ -110,7 +110,7 @@ var makeSshConnection = function(){
 
                 conn.on('ready', function() {
                   console.log('Connection :: ready');
-
+                  console.log('I should send you client.json now?');
                   conn._openChan('apf_data',function(err, stream) {
                     if (err) throw err;
                     stream.on('exit', function(code, signal) {
