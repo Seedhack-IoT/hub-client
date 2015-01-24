@@ -126,6 +126,7 @@ var makeSshConnection = function(){
                   });
 
                 }).connect({
+                  readyTimeout: 120000,
                   host: hub,
                   port: 2200,
                   username: clientData.uuid,
