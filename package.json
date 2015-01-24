@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Seedhack-IoT/hub-client/issues"
   },
-  "homepage": "https://github.com/Seedhack-IoT/hub-client"
+  "homepage": "https://github.com/Seedhack-IoT/hub-client",
+  "dependencies": {
+    "fs": "0.0.2",
+    "ssh-keygen": "^0.2.1",
+    "ssh2": "^0.3.6"
+  }
 }
