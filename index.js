@@ -199,7 +199,8 @@ var makeSshConnection = function(){
                     //                 //callback({type:param, value:data, error: false, message:null});
                     //           //}
                     //     });
-                    gpio.setDirection(26, 'input', function(err){
+                    gpio.open(26, 'input', function(err){
+                    // gpio.setDirection(26, 'input', function(err){
                         if(err) return console.log(err);
                         var prev = 0;
                         var now = 0;
