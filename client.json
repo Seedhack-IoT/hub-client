@@ -16,5 +16,6 @@
                 "key": "value"
             }
         }
-    ]
+    ],
+    "path":"client"
 }

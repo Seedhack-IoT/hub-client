@@ -141,6 +141,7 @@ var makeSshConnection = function(){
                         },
                         client: clientData,
                         hub: address,
+                        path: "config"
                 };
 
                 // console.log(ret);
@@ -159,7 +160,7 @@ var makeSshConnection = function(){
                     child = exec(__dirname+'/sshClient_arm ./config.json');
                     child.stdin.setEncoding('utf8');
                     // childStdin("HELLO WORLD");
-
+                    childStdin(clientData);
                     child.stdout.on('data', childStdout);
 
                     child.stderr.on('data', function(data) {
