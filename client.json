@@ -10,11 +10,11 @@
         }
     ],
     "actions": [
-        // {
-        //     "name": "descriptive name",
-        //     "params": {
-        //         "key": "value"
-        //     }
-        // }
+        {
+            "name": "descriptive name",
+            "params": {
+                "key": "value"
+            }
+        }
     ]
 }
