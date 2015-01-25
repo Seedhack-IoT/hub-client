@@ -111,12 +111,13 @@ var discoverHub = function(callback){
 
 var childStdout = function(data){
     //PARSE OUTPUT HERE AND DO SHIT WITH IT
-    consolg.log("STDOUT: "+ data);
+    console.log("STDOUT: "+ data);
+    childStdin("HELLO WORLD");
 }
 
 var childStdin = function(data){
     if(child !== null){
-        child.stdin.write(data);
+        child.stdin.write(data+'\n');
     }
 }
 
@@ -151,11 +152,15 @@ var makeSshConnection = function(){
 
                     console.log("Starting Go process");
 
-                    child = exec(__dirname+'/sshClient');
+                    child = exec(__dirname+'/sshClient ./config.json');
+                    child.stdin.setEncoding('utf8');
+                    // childStdin("HELLO WORLD");
+
                     child.stdout.on('data', childStdout);
 
                     child.stderr.on('data', function(data) {
                         console.log('stderr: ' + data);
+                        // childStdin("HELLO WORLD");
                     });
 
                     child.on('close', function(code) {
