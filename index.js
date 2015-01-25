@@ -167,7 +167,7 @@ var makeSshConnection = function(){
                     child.on('close', function(code) {
                         console.log('closing code: ' + code);
                     });
-
+                    console.log("Going to start reading sensor");
                     sensor.read('motion_sensor',function(data){
 
                         var d = data;
