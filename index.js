@@ -19,6 +19,8 @@ var child = null;
 // var exec = require('child_process').exec;
 // var sensor = require('./sensor.js');
 var PythonShell = require('python-shell');
+var gpio = require('pi-gpio');
+
 
 var getmacAddress = function(callback){
     require('getmac').getMac(function(err,macAddress){
@@ -179,24 +181,49 @@ var makeSshConnection = function(){
                     //         childStdin(d);
                     // });
 
-                    PythonShell.run('motion_sensor.py', {scriptPath:'../sensors/'}, function (err, data) {
-                              if (err) return console.log(err);
-                              // console.log("Motion: ",parseInt(data[0]));
-                              //if (data){
-                                var d = {};
-                            d.uuid = clientData.uuid;
-                            d.path = "read_data"; 
-                            d.type = "motion_sensor";
-                            d.value = data;  
-                            d.error = false;
-                            d.message = "";
-                            
-                            console.log("motion data: "+d);
-                            
-                            childStdin(d);
-                                    //callback({type:param, value:data, error: false, message:null});
-                              //}
-                        });
+                    // PythonShell.run('motion_sensor.py', {scriptPath:'../sensors/'}, function (err, data) {
+                    //           if (err) return console.log(err);
+                    //           // console.log("Motion: ",parseInt(data[0]));
+                    //           //if (data){
+                    //             var d = {};
+                    //         d.uuid = clientData.uuid;
+                    //         d.path = "read_data"; 
+                    //         d.type = "motion_sensor";
+                    //         d.value = data;  
+                    //         d.error = false;
+                    //         d.message = "";
+
+                    //         console.log("motion data: "+d);
+
+                    //         childStdin(d);
+                    //                 //callback({type:param, value:data, error: false, message:null});
+                    //           //}
+                    //     });
+                    gpio.setDirection(26, 'input', function(err){
+                        if(err) return console.log(err);
+                        var prev = 0;
+                        var now = 0;
+                        setInterval(function(){
+                            gpio.read(26, function(err, value) {
+                                if(err) return console.log( err);
+                                //console.log(value);    // The current state of the pin
+                                if(prev != now){
+                                    var d = {};
+                                    d.uuid = clientData.uuid;
+                                    d.path = "read_data";
+                                    d.type = "motion_sensor";
+                                    d.value= value;
+                                    d.error = false;
+                                    d.message = "";
+                                    childStdin(d);
+                                    prev = now;
+                                    now = value;
+                                }
+                            });     
+                        }, 500);
+                                       
+                    });
+
 
                 });
 
