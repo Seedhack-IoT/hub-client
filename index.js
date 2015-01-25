@@ -112,7 +112,7 @@ var discoverHub = function(callback){
 var childStdout = function(data){
     //PARSE OUTPUT HERE AND DO SHIT WITH IT
     console.log("STDOUT: "+ data);
-    childStdin("HELLO WORLD");
+    // childStdin("HELLO WORLD");
 }
 
 var childStdin = function(data){
@@ -120,10 +120,6 @@ var childStdin = function(data){
         child.stdin.write(data+'\n');
     }
 }
-
-var readSensors = function(callback){
-    callback(sensor.read());
-};
 
 var makeSshConnection = function(){
     console.log("Making SSH connection...");
@@ -172,10 +168,12 @@ var makeSshConnection = function(){
                         console.log('closing code: ' + code);
                     });
 
-                    readSensors('motion_sensor',function(data){
+                    sensor.read('motion_sensor',function(data){
                         var d = data;
                             d.uuid = clientData.uuid;
                             d.path = "read_data";
+
+                            childStdin(d);
                     });
 
                 });
