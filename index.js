@@ -169,9 +169,11 @@ var makeSshConnection = function(){
                     });
 
                     sensor.read('motion_sensor',function(data){
+
                         var d = data;
                             d.uuid = clientData.uuid;
-                            d.path = "read_data";
+                            d.path = "read_data";   
+                            console.log("motion data: "+d);
 
                             childStdin(d);
                     });
@@ -284,8 +286,8 @@ var resetClient = function(){
     });
 }
 
-// resetClient();
-init();
+resetClient();
+// init();
 
 
 

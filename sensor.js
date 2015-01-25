@@ -1,7 +1,7 @@
 var PythonShell = require('python-shell');
 var availableScripts = ['motion_sensor']
 var options = {
-  scriptPath: '../scripts/'
+  scriptPath: '../sensors/'
 };
 
 function randomIntInc (low, high) {
