@@ -17,7 +17,7 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 var child = null;
 // var exec = require('child_process').exec;
-
+var sensor = require('sensor.js');
 
 var getmacAddress = function(callback){
     require('getmac').getMac(function(err,macAddress){
@@ -121,6 +121,10 @@ var childStdin = function(data){
     }
 }
 
+var readSensors = function(callback){
+    callback(sensor.read());
+};
+
 var makeSshConnection = function(){
     console.log("Making SSH connection...");
     discoverHub(function(address){        
@@ -152,7 +156,7 @@ var makeSshConnection = function(){
 
                     console.log("Starting Go process");
 
-                    child = exec(__dirname+'/sshClient ./config.json');
+                    child = exec(__dirname+'/sshClient_arm ./config.json');
                     child.stdin.setEncoding('utf8');
                     // childStdin("HELLO WORLD");
 

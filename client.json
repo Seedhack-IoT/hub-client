@@ -1,0 +1,20 @@
+{
+    "name": "dry_snowflake",
+    "reset": false,
+    "uuid": "3c:15:c2:e4:39:d0",
+    "sensors": [
+        {
+            "type": "pressure",
+            "name": "pressure sensor on my bed",
+            "dataType": "int"
+        }
+    ],
+    "actions": [
+        // {
+        //     "name": "descriptive name",
+        //     "params": {
+        //         "key": "value"
+        //     }
+        // }
+    ]
+}
