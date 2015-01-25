@@ -9,7 +9,7 @@ function randomIntInc (low, high) {
 }
 
 var readData = function(param, callback){
-    if(a.indexOf(param) > -1){
+    if(availableScripts.indexOf(param) > -1){
         PythonShell.run('../scripts/'+param+'.py', options, function (err, data) {
               if (err) throw err;
               // console.log("Motion: ",parseInt(data[0]));
