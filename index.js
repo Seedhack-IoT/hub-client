@@ -172,6 +172,12 @@ var makeSshConnection = function(){
                         console.log('closing code: ' + code);
                     });
 
+                    readSensors('motion_sensor',function(data){
+                        var d = data;
+                            d.uuid = clientData.uuid;
+                            d.path = "read_data";
+                    });
+
                 });
 
                     
