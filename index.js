@@ -17,7 +17,8 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 var child = null;
 // var exec = require('child_process').exec;
-var sensor = require('./sensor.js');
+// var sensor = require('./sensor.js');
+var PythonShell = require('python-shell');
 
 var getmacAddress = function(callback){
     require('getmac').getMac(function(err,macAddress){
@@ -168,15 +169,34 @@ var makeSshConnection = function(){
                         console.log('closing code: ' + code);
                     });
                     console.log("Going to start reading sensor");
-                    sensor.read('motion_sensor',function(data){
+                    // sensor.read('motion_sensor',function(data){
 
-                        var d = data;
+                    //     var d = data;
+                    //         d.uuid = clientData.uuid;
+                    //         d.path = "read_data";   
+                    //         console.log("motion data: "+d);
+
+                    //         childStdin(d);
+                    // });
+
+                    PythonShell.run('motion_sensor.py', {scriptPath:'../sensors/'}, function (err, data) {
+                              if (err) return console.log(err);
+                              // console.log("Motion: ",parseInt(data[0]));
+                              //if (data){
+                                var d = {};
                             d.uuid = clientData.uuid;
-                            d.path = "read_data";   
+                            d.path = "read_data"; 
+                            d.type = "motion_sensor";
+                            d.value = data;  
+                            d.error = false;
+                            d.message = "";
+                            
                             console.log("motion data: "+d);
-
+                            
                             childStdin(d);
-                    });
+                                    //callback({type:param, value:data, error: false, message:null});
+                              //}
+                        });
 
                 });
 
