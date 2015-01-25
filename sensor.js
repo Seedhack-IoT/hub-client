@@ -1,7 +1,7 @@
 var PythonShell = require('python-shell');
 var availableScripts = ['motion_sensor']
 var options = {
-  scriptPath: '/usr/bin/python/'
+  scriptPath: '../scripts/'
 };
 
 function randomIntInc (low, high) {
@@ -10,7 +10,7 @@ function randomIntInc (low, high) {
 
 var readData = function(param, callback){
     if(availableScripts.indexOf(param) > -1){
-        PythonShell.run('../scripts/'+param+'.py', options, function (err, data) {
+        PythonShell.run(param+'.py', options, function (err, data) {
               if (err) throw err;
               // console.log("Motion: ",parseInt(data[0]));
               if (data){
