@@ -13,9 +13,9 @@ var readData = function(param, callback){
         PythonShell.run(param+'.py', options, function (err, data) {
               if (err) throw err;
               // console.log("Motion: ",parseInt(data[0]));
-              if (data){
+              //if (data){
                     callback({type:param, value:data, error: false, message:null});
-              }
+              //}
         });
     } else {
         callback({error:true, message:"Invalid sensor"});
