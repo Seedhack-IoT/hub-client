@@ -17,7 +17,7 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 var child = null;
 // var exec = require('child_process').exec;
-var sensor = require('sensor.js');
+var sensor = require('./sensor.js');
 
 var getmacAddress = function(callback){
     require('getmac').getMac(function(err,macAddress){
