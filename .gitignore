@@ -29,3 +29,5 @@ node_modules
 
 keys
 sshClient
+client.json
+config.json
