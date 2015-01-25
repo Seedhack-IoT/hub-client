@@ -1,1 +1,1 @@
-{"name":"still_mountain","reset":false,"uuid":"3c:15:c2:e4:39:d0","sensors":[{"type":"pressure","name":"pressure sensor on my bed","dataType":"int"}],"actions":["some_Action"],"path":"client"}
+{"name":"summer_smoke","reset":false,"uuid":"b8:27:eb:31:bc:5a","sensors":{"motion":{"name":"hey im a motion sensor"}},"actions":["some_Action"],"path":"client"}
